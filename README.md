@@ -1,6 +1,8 @@
 ### Frappe Field Sales
 
-Custom field sales app: Sales Visit, Rapport, Vehicle Log, get_aussendienst_items, company-based access.
+Custom field sales app: Sales Visit, Mutation Log, Daily Sales Summary, Vehicle Log, get_aussendienst_items, Lead/Item custom fields, company-based access.
+
+**API:** The mobile app calls `get_aussendienst_items` (with optional `numericIdFilter`). This is implemented as a whitelisted method in this app. You can remove any existing Server Script that provided `get_aussendienst_items`; use this app method instead.
 
 ### Installation
 

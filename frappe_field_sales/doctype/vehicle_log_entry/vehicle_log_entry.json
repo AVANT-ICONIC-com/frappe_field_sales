@@ -1,0 +1,129 @@
+{
+ "actions": [],
+ "creation": "2026-03-02 00:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type_of_journey",
+  "kilometre",
+  "daily_sales_summary",
+  "column_break_1",
+  "latitude",
+  "longitude",
+  "section_break_address",
+  "adress_type",
+  "adress_reference",
+  "section_break_source",
+  "source_type",
+  "source_doctype",
+  "source_document",
+  "section_break_notes",
+  "comments",
+  "geolocation"
+ ],
+ "fields": [
+  {
+   "fieldname": "type_of_journey",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Journey",
+   "options": "Business\nPrivat"
+  },
+  {
+   "fieldname": "kilometre",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Kilometre"
+  },
+  {
+   "fieldname": "daily_sales_summary",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Daily Sales Summary",
+   "options": "Daily Sales Summary"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude"
+  },
+  {
+   "fieldname": "section_break_address",
+   "fieldtype": "Section Break",
+   "label": "Address Reference"
+  },
+  {
+   "fieldname": "adress_type",
+   "fieldtype": "Select",
+   "label": "Address Type",
+   "options": "Address\nMutation Log"
+  },
+  {
+   "fieldname": "adress_reference",
+   "fieldtype": "Dynamic Link",
+   "label": "Address Reference",
+   "options": "adress_type"
+  },
+  {
+   "fieldname": "section_break_source",
+   "fieldtype": "Section Break",
+   "label": "Source"
+  },
+  {
+   "fieldname": "source_type",
+   "fieldtype": "Select",
+   "label": "Source Type",
+   "options": "Manually\nDaily Sales Summary\nSales Visit"
+  },
+  {
+   "fieldname": "source_doctype",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Source DocType"
+  },
+  {
+   "fieldname": "source_document",
+   "fieldtype": "Dynamic Link",
+   "label": "Source Document",
+   "options": "source_doctype"
+  },
+  {
+   "fieldname": "section_break_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "geolocation",
+   "fieldtype": "Geolocation",
+   "label": "Geolocation"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-02 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Frappe Field Sales",
+ "name": "Vehicle Log Entry",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

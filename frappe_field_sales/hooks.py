@@ -10,6 +10,10 @@ app_license = "mit"
 
 # required_apps = []
 
+# Whitelist API methods (callable via frappe.call)
+# ------------------
+whitelist = ["frappe_field_sales.api.items.get_aussendienst_items"]
+
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
 # 	{
@@ -43,7 +47,10 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+	"Vehicle Log": "public/js/vehicle_log.js",
+	"Item": "public/js/item.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -83,7 +90,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "frappe_field_sales.install.before_install"
-# after_install = "frappe_field_sales.install.after_install"
+after_install = "frappe_field_sales.install.after_install"
 
 # Uninstallation
 # ------------
@@ -117,9 +124,12 @@ app_license = "mit"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+	"Sales Visit": "frappe_field_sales.permissions.get_sales_visit_permission_query_conditions",
+	"Mutation Log": "frappe_field_sales.permissions.get_mutation_log_permission_query_conditions",
+	"Daily Sales Summary": "frappe_field_sales.permissions.get_daily_sales_summary_permission_query_conditions",
+	"Vehicle Log": "frappe_field_sales.permissions.get_vehicle_log_permission_query_conditions",
+}
 #
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
@@ -137,13 +147,12 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Sales Visit": {"before_insert": "frappe_field_sales.permissions.set_default_company"},
+	"Mutation Log": {"before_insert": "frappe_field_sales.permissions.set_default_company"},
+	"Daily Sales Summary": {"before_insert": "frappe_field_sales.permissions.set_default_company"},
+	"Vehicle Log": {"before_insert": "frappe_field_sales.permissions.set_default_company"},
+}
 
 # Scheduled Tasks
 # ---------------
