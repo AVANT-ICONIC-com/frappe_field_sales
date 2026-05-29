@@ -2,7 +2,7 @@ import frappe
 
 
 def after_install():
-	_add_lead_custom_fields()
+#	_add_lead_custom_fields()
 	_add_item_custom_fields()
 
 

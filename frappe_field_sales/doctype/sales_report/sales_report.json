@@ -23,7 +23,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Lead",
-   "options": "Lead"
+   "options": "CRM Lead"
   },
   {
    "fieldname": "sales_person",

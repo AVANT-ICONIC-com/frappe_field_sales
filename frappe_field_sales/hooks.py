@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["crm", "erpnext"]
 
 # Whitelist API methods (callable via frappe.call)
 # ------------------
