@@ -1,8 +1,10 @@
 ### Frappe Field Sales
 
-Custom field sales app: Sales Visit, Mutation Log, Daily Sales Summary, Vehicle Log, get_aussendienst_items, Lead/Item custom fields, company-based access.
+**EXPERIMENTAL:** Not all doctypes are implemented yet for practical use, and practical testing has been limited. Automated tests will be expanded in future versions.
 
-**API:** The mobile app calls `get_aussendienst_items` (with optional `numericIdFilter`). This is implemented as a whitelisted method in this app. You can remove any existing Server Script that provided `get_aussendienst_items`; use this app method instead.
+Custom field sales app for Frappe Framework: Sales Visit, Mutation Log, Daily Sales Summary, Vehicle Log, get_aussendienst_items, Lead/Item custom fields, company-based access.
+
+**API:** A mobile app can call `get_aussendienst_items` (with optional `numericIdFilter`). This is implemented as a whitelisted method in this app.
 
 ### Installation
 
