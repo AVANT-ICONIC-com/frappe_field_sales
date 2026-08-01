@@ -1,0 +1,87 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    services:
+      mariadb:
+        image: mariadb:10.6
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      redis:
+        image: redis:6-alpine
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmariadb-dev-compat libmariadb-dev xvfb
+
+      - name: Install Frappe Bench
+        run: pip install frappe-bench
+
+      - name: Init Bench
+        run: bench init --frappe-branch version-15 --skip-redis-config-generation --skip-assets --python python3 frappe-bench
+
+      - name: Get Apps
+        working-directory: frappe-bench
+        run: |
+          bench get-app --branch version-15 --skip-assets erpnext
+          bench get-app --skip-assets crm
+
+          # Link the checkout so the workflow tests the current PR or commit.
+          bench get-app frappe_field_sales "$GITHUB_WORKSPACE"
+
+      - name: Configure Redis
+        working-directory: frappe-bench
+        run: |
+          bench set-config -g redis_cache redis://127.0.0.1:6379
+          bench set-config -g redis_queue redis://127.0.0.1:6379
+          bench set-config -g redis_socketio redis://127.0.0.1:6379
+
+      - name: Create Site
+        working-directory: frappe-bench
+        run: |
+          bench new-site --db-root-password root --admin-password admin --no-mariadb-socket test-site
+          bench --site test-site set-config developer_mode 1
+          bench --site test-site install-app erpnext
+          bench --site test-site install-app crm
+          bench --site test-site install-app frappe_field_sales
+
+      - name: Setup ERPNext Test Data
+        working-directory: frappe-bench
+        run: bench --site test-site execute erpnext.setup.utils.before_tests
+
+      - name: Run Tests
+        working-directory: frappe-bench
+        run: bench --site test-site run-tests --app frappe_field_sales
