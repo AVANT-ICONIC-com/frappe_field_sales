@@ -64,8 +64,15 @@ jobs:
         run: |
           bench get-app --branch version-15 --skip-assets erpnext
           bench get-app --branch main --skip-assets crm
-          bench get-app --branch develop --skip-assets https://github.com/alyf-de/frappe_openapi.git
           bench get-app frappe_field_sales "$GITHUB_WORKSPACE"
+          bench get-app --branch develop --skip-assets https://github.com/alyf-de/frappe_openapi.git
+
+          # frappe_openapi/develop uses a command annotation that only exists
+          # in newer Frappe versions. It is not needed at runtime on v15.
+          sed -i '/from frappe.utils.bench_helper import CliCtxObj/d' \
+            apps/frappe_openapi/frappe_openapi/commands.py
+          sed -i 's/def generate_openapi(context: CliCtxObj,/def generate_openapi(context,/' \
+            apps/frappe_openapi/frappe_openapi/commands.py
 
       - name: Configure Redis
         working-directory: frappe-bench
