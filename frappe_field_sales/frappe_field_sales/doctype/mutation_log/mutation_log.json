@@ -1,0 +1,229 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-03-02 00:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "user",
+  "change_date",
+  "company",
+  "column_break_1",
+  "status",
+  "change_reason",
+  "section_break_party",
+  "party_type",
+  "party",
+  "section_break_mutation",
+  "mutation_text",
+  "section_break_address",
+  "current_address",
+  "address_line_1_ro",
+  "address_line_2_ro",
+  "postal_code",
+  "citytown",
+  "stateprovince",
+  "country",
+  "column_break_addr",
+  "new_address_line_1",
+  "new_address_line_2",
+  "new_postal_code",
+  "new_city_town",
+  "new_state_province",
+  "new_country"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "MUT-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "change_date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Change Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Created\nAddress Changed"
+  },
+  {
+   "fieldname": "change_reason",
+   "fieldtype": "Small Text",
+   "label": "Change Reason"
+  },
+  {
+   "fieldname": "section_break_party",
+   "fieldtype": "Section Break",
+   "label": "Party"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type"
+  },
+  {
+   "fieldname": "section_break_mutation",
+   "fieldtype": "Section Break",
+   "label": "Mutation"
+  },
+  {
+   "fieldname": "mutation_text",
+   "fieldtype": "Text Editor",
+   "label": "Mutation Text"
+  },
+  {
+   "fieldname": "section_break_address",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "current_address",
+   "fieldtype": "Link",
+   "label": "Current Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "address_line_1_ro",
+   "fieldtype": "Data",
+   "label": "Address Line 1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address_line_2_ro",
+   "fieldtype": "Data",
+   "label": "Address Line 2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "citytown",
+   "fieldtype": "Data",
+   "label": "City/Town",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stateprovince",
+   "fieldtype": "Data",
+   "label": "State/Province",
+   "read_only": 1
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_addr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "new_address_line_1",
+   "fieldtype": "Data",
+   "label": "New Address Line 1"
+  },
+  {
+   "fieldname": "new_address_line_2",
+   "fieldtype": "Data",
+   "label": "New Address Line 2"
+  },
+  {
+   "fieldname": "new_postal_code",
+   "fieldtype": "Data",
+   "label": "New Postal Code"
+  },
+  {
+   "fieldname": "new_city_town",
+   "fieldtype": "Data",
+   "label": "New City/Town"
+  },
+  {
+   "fieldname": "new_state_province",
+   "fieldtype": "Data",
+   "label": "New State/Province"
+  },
+  {
+   "fieldname": "new_country",
+   "fieldtype": "Data",
+   "label": "New Country"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-02 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Frappe Field Sales",
+ "name": "Mutation Log",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
