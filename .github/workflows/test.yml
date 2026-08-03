@@ -57,7 +57,7 @@ jobs:
         working-directory: frappe-bench
         run: |
           bench get-app --branch version-15 --skip-assets erpnext
-          bench get-app --skip-assets crm
+          bench get-app --branch v1.81.0 --skip-assets crm
 
           # Link the checkout so the workflow tests the current PR or commit.
           bench get-app frappe_field_sales "$GITHUB_WORKSPACE"

@@ -6,7 +6,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "lead",
+  "fields_section",
+  "party_type",
+  "party",
   "sales_person",
   "event",
   "report_title",
@@ -19,11 +21,21 @@
  ],
  "fields": [
   {
-   "fieldname": "lead",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Lead",
-   "options": "CRM Lead"
+   "fieldname": "fields_section",
+   "fieldtype": "Section Break",
+   "label": "Fields"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Select",
+   "label": "Party Type",
+   "options": "CRM Deal\nCustomer"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type"
   },
   {
    "fieldname": "sales_person",

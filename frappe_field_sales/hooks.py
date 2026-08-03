@@ -12,7 +12,10 @@ required_apps = ["crm", "erpnext"]
 
 # Whitelist API methods (callable via frappe.call)
 # ------------------
-whitelist = ["frappe_field_sales.api.items.get_aussendienst_items"]
+whitelist = [
+	"frappe_field_sales.api.items.get_aussendienst_items",
+	"frappe_field_sales.api.daily_sales_summary.upload_daily_sales_summary",
+]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
