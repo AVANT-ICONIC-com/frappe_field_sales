@@ -66,6 +66,7 @@ def _build_erp_next_item(item_doc):
 		if utils:
 			image_uri = utils.get_url(item_doc.image)
 
+	end_of_life = item_doc.get("end_of_life")
 	return {
 		"itemCode": item_code,
 		"description": (item_doc.get("description") or item_doc.get("item_name") or item_code) or "",
@@ -77,7 +78,7 @@ def _build_erp_next_item(item_doc):
 		"blockedCount": 0,
 		"defaultPrice": default_price,
 		"defaultCurrency": default_currency,
-		"endOfLife": (item_doc.get("end_of_life") or "").strip() or "",
+		"endOfLife": end_of_life.isoformat() if end_of_life else "",
 		"numericId": str(numeric_id),
 		"status": status,
 		"prices": prices,
