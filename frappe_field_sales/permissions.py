@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe.permissions import get_user_permissions
 
 
 def get_sales_visit_permission_query_conditions(user, doctype=None):
@@ -23,7 +24,7 @@ def get_vehicle_log_permission_query_conditions(user, doctype=None):
 def _company_permission_condition(user, doctype, company_field):
 	if not user:
 		user = frappe.session.user
-	user_perms = frappe.get_user_permissions(user=user)
+	user_perms = get_user_permissions(user=user)
 	allowed = user_perms.get("Company")
 	if not allowed:
 		return ""
