@@ -14,6 +14,7 @@ required_apps = ["crm", "erpnext"]
 # ------------------
 whitelist = [
 	"frappe_field_sales.api.items.get_aussendienst_items",
+	"frappe_field_sales.api.sales_orders.get_sales_orders_for_item",
 	"frappe_field_sales.api.daily_sales_summary.upload_daily_sales_summary",
 ]
 
