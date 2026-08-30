@@ -4,26 +4,10 @@ from typing import Any
 import frappe
 from frappe.utils import getdate
 
+from frappe_field_sales.api.item_ids import get_item_code_from_artikel_id
+
 
 CART_TYPES = ("verkaufVorOrt", "telefonVerkauf", "musterbestellung")
-
-
-def get_item_code_from_artikel_id(artikel_id: int) -> str:
-	rows = frappe.db.sql(
-		"""
-		SELECT i.name FROM `tabItem` i
-		WHERE MOD(
-			CONV(SUBSTRING(CAST(SHA(CONCAT(i.name)) AS CHAR), 1, 16), 16, 10),
-			9007199254740991
-		) = %s
-		LIMIT 1
-		""",
-		(artikel_id,),
-		as_dict=True,
-	)
-	if not rows:
-		frappe.throw(f"No Item found for artikelId={artikel_id}")
-	return rows[0]["name"]
 
 
 def get_default_company() -> str:

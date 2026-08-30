@@ -3,6 +3,8 @@ from typing import Any
 
 import frappe
 
+from frappe_field_sales.api.item_ids import get_artikel_id
+
 
 STATUS_BACK_ORDERED = "backOrdered"
 STATUS_NOT_ORDERED_FROM_SUPPLIER = "notOrderedFromSupplier"
@@ -22,20 +24,13 @@ def get_aussendienst_items(numericIdFilter=None):
 			pass
 
 	item_meta = frappe.get_meta("Item")
-	has_numeric_id = bool(item_meta.get_field("numeric_id"))
 
 	filters: dict[str, Any] = {"disabled": 0}
-	if numeric_ids is not None and has_numeric_id:
-		filters["numeric_id"] = ["in", [str(n) for n in numeric_ids]]
-	elif numeric_ids is not None:
-		filters["name"] = ["in", [str(n) for n in numeric_ids]]
 
 	fields = [
 		"name", "item_code", "item_name", "description", "image", "stock_uom",
 		"end_of_life",
 	]
-	if item_meta.get_field("numeric_id"):
-		fields.append("numeric_id")
 	if item_meta.get_field("back_ordered"):
 		fields.append("back_ordered")
 	if item_meta.get_field("do_not_order"):
@@ -48,13 +43,16 @@ def get_aussendienst_items(numericIdFilter=None):
 	result = []
 	for item in items:
 		item_doc = frappe._dict(item)
+		item_code = item_doc.get("item_code") or item_doc.get("name") or ""
+		if numeric_ids is not None and get_artikel_id(item_code) not in numeric_ids:
+			continue
 		result.append(_build_erp_next_item(item_doc))
 	return result
 
 
 def _build_erp_next_item(item_doc):
 	item_code = item_doc.get("item_code") or item_doc.get("name") or ""
-	numeric_id = item_doc.get("numeric_id") or item_code
+	numeric_id = get_artikel_id(item_code)
 	status = _derive_status(item_doc)
 	default_price, default_currency = _get_default_price(item_code)
 	prices = _get_item_prices(item_code)
