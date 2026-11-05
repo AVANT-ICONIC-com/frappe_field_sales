@@ -4,7 +4,8 @@ import frappe
 
 
 JAVASCRIPT_MAX_SAFE_INTEGER = (1 << 53) - 1
-ITEM_CODE_HASH_SQL = "CONV(SUBSTRING(CAST(SHA(i.name) AS CHAR), 1, 16), 16, 10)"
+# CONV returns text; cast before MOD to avoid floating-point rounding of the hash.
+ITEM_CODE_HASH_SQL = "CAST(CONV(SUBSTRING(CAST(SHA(i.name) AS CHAR), 1, 16), 16, 10) AS DECIMAL(20, 0))"
 
 
 def get_artikel_id(item_code: str) -> int:

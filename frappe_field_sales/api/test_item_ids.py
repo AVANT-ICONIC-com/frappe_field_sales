@@ -6,6 +6,15 @@ from frappe_field_sales.api import item_ids
 
 
 class TestItemIds(FrappeTestCase):
+	def test_sql_hash_matches_python_without_rounding(self):
+		for item_code in ("Bergfried", "ITEM-ABC"):
+			with self.subTest(item_code=item_code):
+				rows = item_ids.frappe.db.sql(
+					f"SELECT MOD({item_ids.ITEM_CODE_HASH_SQL}, %s) FROM (SELECT %s AS name) i",
+					(item_ids.JAVASCRIPT_MAX_SAFE_INTEGER, item_code),
+				)
+				self.assertEqual(int(rows[0][0]), item_ids.get_artikel_id(item_code))
+
 	def test_artikel_id_is_deterministic_and_javascript_safe(self):
 		artikel_id = item_ids.get_artikel_id("ITEM-ABC")
 
